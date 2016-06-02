@@ -4,6 +4,10 @@ query "get greeting"()
     greeting : Greeting()
 end
 
+query "get properties"()
+    props : Props()
+end
+
 rule "greet person"
     when
         person : Person()
@@ -11,4 +15,11 @@ rule "greet person"
         String salutation = "Hello " + person.getName() + "!";
         System.out.println("********** HelloRules DRL: " + salutation + " **********");
         insert(new Greeting(salutation));
+end
+
+rule "read props"
+    when
+        name : PropsName();
+    then
+        insert(Props.read(name.getName()))
 end
