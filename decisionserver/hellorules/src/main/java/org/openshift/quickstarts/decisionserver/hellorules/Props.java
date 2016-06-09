@@ -19,8 +19,13 @@ public class Props {
 
     public static Props read(String name) {
         Properties properties = new Properties();
+
         log.info("Trying to read properties: " + name);
-        InputStream stream = Props.class.getClassLoader().getResourceAsStream(name);
+        ClassLoader classLoader = Props.class.getClassLoader();
+
+        log.info("Current classloader: " + classLoader);
+
+        InputStream stream = classLoader.getResourceAsStream(name);
         if (stream != null) {
             try {
                 properties.load(stream);
